@@ -6,7 +6,7 @@ Aplikasi ini dibangun mengacu pada standar visual dan UX modern dari [ponsfamily
 
 ---
 
-## 📸 Bukti Visual (Screenshots)
+## Bukti Visual (Screenshots)
 
 Semua bukti visual tersimpan di folder [`/screenshots`](./screenshots) dan [`/launchpad/public/screenshots`](./launchpad/public/screenshots):
 
@@ -19,7 +19,7 @@ Semua bukti visual tersimpan di folder [`/screenshots`](./screenshots) dan [`/la
 
 ---
 
-## 🚀 Cara Menjalankan Project
+## Cara Menjalankan Project
 
 ### 1. Prasyarat
 - **Node.js** >= 18.17 (Direkomendasikan Node.js v20 atau v22)
@@ -52,7 +52,7 @@ npm run start
 
 ---
 
-## 🌐 Konfigurasi Jaringan (Robinhood Chain Testnet)
+## Konfigurasi Jaringan (Robinhood Chain Testnet)
 
 Aplikasi telah dilengkapi tombol **"Switch to Robinhood Testnet"** otomatis di banner dan header jika wallet Anda berada di network lain (`wallet_addEthereumChain` / `wallet_switchEthereumChain`).
 
@@ -66,7 +66,7 @@ Jika ingin menambahkan secara manual di MetaMask:
 
 ---
 
-## 📐 Keputusan Teknis Penting & Alasannya
+## Keputusan Teknis Penting & Alasannya
 
 ### 1. Framework & Web3 Core
 - **Next.js 16 (App Router + Turbopack) & React 19:** Memberikan performa render tercepat dan bundling modern.
@@ -117,7 +117,7 @@ Jika ingin menambahkan secara manual di MetaMask:
 
 ---
 
-## 🏆 Fitur Lengkap yang Telah Diselesaikan
+## Fitur Lengkap yang Telah Diselesaikan
 
 ### Fitur Utama (Langkah 1–9)
 - [x] **Langkah 1 — Setup Project & Network:** Integrasi Next.js, Viem, Wagmi, dan membaca fungsi `launchFee()` (0.0005 ETH) dari LaunchFactory.
@@ -138,7 +138,7 @@ Jika ingin menambahkan secara manual di MetaMask:
 
 ---
 
-## ⏳ Apa yang Belum Selesai / Potensi Pengembangan Lanjutan
+## Apa yang Belum Selesai / Potensi Pengembangan Lanjutan
 
 1. **Grafik Candlestick Interaktif (TradingView):**
    - Saat ini riwayat perdagangan diambil langsung dari event log RPC. Untuk menampilkan grafik candlestick multi-timeframe (1m, 5m, 1h) secara akurat diperlukan subgrapah pengindeksan data historis (misal: Subgraph The Graph / Goldsky) untuk agregasi OHLCV.
@@ -147,7 +147,7 @@ Jika ingin menambahkan secara manual di MetaMask:
 
 ---
 
-## 🤖 Bagian yang Dibantu AI
+## Bagian yang Dibantu AI
 
 - **Boilerplate Konfigurasi:** Inisialisasi struktur Next.js 16 dan Wagmi v3 provider.
 - **Sistem Desain Visual:** Inspirasi palet warna dan struktur CSS untuk menyerupai nuansa ponsfamily.com.
@@ -155,7 +155,7 @@ Jika ingin menambahkan secara manual di MetaMask:
 
 ---
 
-## 🔍 Catatan & Temuan Teknis pada Kontrak
+## Catatan & Temuan Teknis pada Kontrak
 
 1. **Batas Rentang Blok RPC:**
    - RPC publik Sepolia Robinhood Testnet membatasi maksimal 50.000 blok per panggilan `eth_getLogs`. Implementasi chunked indexing sebesar 49.000 blok berhasil mengatasi kendala ini sepenuhnya.
