@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+launchpad/node_modules/
+
+# next.js
+.next/
+launchpad/.next/
+**/.next/
+out/
+launchpad/out/
+
+# production
+build/
+dist/
+
+# misc
+.DS_Store
+*.pem
+.env
+.env*.local
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
