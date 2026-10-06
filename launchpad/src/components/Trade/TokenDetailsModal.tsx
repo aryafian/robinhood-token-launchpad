@@ -49,7 +49,12 @@ export function TokenDetailsModal({
         });
 
         const currentBlock = await client.getBlockNumber();
-        const fromBlock = token.blockNumber > 0n ? token.blockNumber : currentBlock - 45000n;
+        // Public RPC limits to 50,000 blocks per eth_getLogs
+        const safeWindow = 48000n;
+        const fromBlock =
+          currentBlock > safeWindow
+            ? (token.blockNumber > currentBlock - safeWindow ? token.blockNumber : currentBlock - safeWindow)
+            : 0n;
 
         // Query Buy logs
         const buyLogs = await client.getLogs({
