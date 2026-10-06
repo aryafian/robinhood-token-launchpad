@@ -95,6 +95,13 @@ export const launchFactoryAbi = [
     stateMutability: 'payable',
   },
   {
+    type: 'function',
+    name: 'createGraduatedPool',
+    inputs: [{ name: 'token', type: 'address' }],
+    outputs: [{ name: 'positionId', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+  },
+  {
     type: 'event',
     name: 'TokenLaunched',
     inputs: [
@@ -249,6 +256,45 @@ export const launcherTokenAbi = [
     ],
     outputs: [{ name: '', type: 'bool' }],
     stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    name: 'description',
+    inputs: [],
+    outputs: [{ name: '', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'allowance',
+    inputs: [
+      { name: 'owner', type: 'address' },
+      { name: 'spender', type: 'address' },
+    ],
+    outputs: [{ name: '', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    name: 'getTokenInfo',
+    inputs: [],
+    outputs: [
+      { name: 'tokenDeployer', type: 'address' },
+      { name: 'tokenLogo', type: 'string' },
+      { name: 'tokenDescription', type: 'string' },
+      {
+        name: 'tokenSocials',
+        type: 'tuple',
+        components: [
+          { name: 'twitter', type: 'string' },
+          { name: 'telegram', type: 'string' },
+          { name: 'discord', type: 'string' },
+          { name: 'website', type: 'string' },
+          { name: 'farcaster', type: 'string' },
+        ],
+      },
+    ],
+    stateMutability: 'view',
   },
   {
     type: 'function',
