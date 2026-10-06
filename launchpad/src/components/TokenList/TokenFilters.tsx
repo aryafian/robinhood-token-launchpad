@@ -33,29 +33,29 @@ export function TokenFilters({
         flexWrap: 'wrap',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '16px',
-        marginBottom: '28px',
+        gap: '12px',
+        marginBottom: '20px',
       }}
     >
-      {/* Left: Tab selectors */}
+      {/* Left: Segmented Status Tabs */}
       <div
         style={{
           display: 'flex',
           backgroundColor: 'var(--bg-card)',
           border: '1px solid var(--border-subtle)',
-          borderRadius: 'var(--radius-full)',
-          padding: '4px',
-          gap: '4px',
+          borderRadius: 'var(--radius-sm)',
+          padding: '2px',
+          gap: '2px',
         }}
       >
         <button
           onClick={() => onStatusFilterChange('all')}
           style={{
-            padding: '6px 16px',
-            borderRadius: 'var(--radius-full)',
-            fontSize: '0.8125rem',
+            padding: '5px 12px',
+            borderRadius: 'var(--radius-xs)',
+            fontSize: '0.78125rem',
             fontWeight: 600,
-            transition: 'all 0.15s ease',
+            transition: 'background-color 0.12s ease',
             backgroundColor: statusFilter === 'all' ? 'var(--accent-lime)' : 'transparent',
             color: statusFilter === 'all' ? 'var(--text-inverted)' : 'var(--text-secondary)',
           }}
@@ -66,26 +66,26 @@ export function TokenFilters({
         <button
           onClick={() => onStatusFilterChange('active')}
           style={{
-            padding: '6px 16px',
-            borderRadius: 'var(--radius-full)',
-            fontSize: '0.8125rem',
+            padding: '5px 12px',
+            borderRadius: 'var(--radius-xs)',
+            fontSize: '0.78125rem',
             fontWeight: 600,
-            transition: 'all 0.15s ease',
+            transition: 'background-color 0.12s ease',
             backgroundColor: statusFilter === 'active' ? 'var(--accent-lime)' : 'transparent',
             color: statusFilter === 'active' ? 'var(--text-inverted)' : 'var(--text-secondary)',
           }}
         >
-          Active Curve ({activeCount})
+          Active ({activeCount})
         </button>
 
         <button
           onClick={() => onStatusFilterChange('graduated')}
           style={{
-            padding: '6px 16px',
-            borderRadius: 'var(--radius-full)',
-            fontSize: '0.8125rem',
+            padding: '5px 12px',
+            borderRadius: 'var(--radius-xs)',
+            fontSize: '0.78125rem',
             fontWeight: 600,
-            transition: 'all 0.15s ease',
+            transition: 'background-color 0.12s ease',
             backgroundColor: statusFilter === 'graduated' ? 'var(--accent-lime)' : 'transparent',
             color: statusFilter === 'graduated' ? 'var(--text-inverted)' : 'var(--text-secondary)',
           }}
@@ -94,53 +94,30 @@ export function TokenFilters({
         </button>
       </div>
 
-      {/* Right: Search bar & Sort dropdown */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: '1', maxWidth: '520px', justifyContent: 'flex-end' }}>
-        {/* Search */}
-        <div
-          style={{
-            position: 'relative',
-            flex: '1',
-            minWidth: '200px',
-            maxWidth: '320px',
-          }}
-        >
+      {/* Right: Search & Sort Dropdown */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: '1', maxWidth: '480px', justifyContent: 'flex-end' }}>
+        <div style={{ position: 'relative', flex: '1', minWidth: '180px', maxWidth: '280px' }}>
           <input
             type="text"
-            placeholder="Search name, symbol, or address..."
+            placeholder="Search token, symbol, address..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             style={{
               width: '100%',
               backgroundColor: 'var(--bg-card)',
               border: '1px solid var(--border-subtle)',
-              borderRadius: 'var(--radius-full)',
-              padding: '8px 16px 8px 36px',
-              fontSize: '0.8125rem',
+              borderRadius: 'var(--radius-sm)',
+              padding: '6px 28px 6px 10px',
+              fontSize: '0.78125rem',
               color: 'var(--text-primary)',
-              transition: 'border-color 0.15s ease',
             }}
-            onFocus={(e) => (e.target.style.borderColor = 'var(--accent-lime)')}
-            onBlur={(e) => (e.target.style.borderColor = 'var(--border-subtle)')}
           />
-          <span
-            style={{
-              position: 'absolute',
-              left: '14px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: 'var(--text-muted)',
-              fontSize: '0.85rem',
-            }}
-          >
-            🔍
-          </span>
           {searchQuery && (
             <button
               onClick={() => onSearchChange('')}
               style={{
                 position: 'absolute',
-                right: '12px',
+                right: '8px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 color: 'var(--text-muted)',
@@ -152,20 +129,18 @@ export function TokenFilters({
           )}
         </div>
 
-        {/* Sort */}
         <select
           value={sortOption}
           onChange={(e) => onSortOptionChange(e.target.value as SortOption)}
           style={{
             backgroundColor: 'var(--bg-card)',
             border: '1px solid var(--border-subtle)',
-            borderRadius: 'var(--radius-full)',
-            padding: '8px 14px',
-            fontSize: '0.8125rem',
+            borderRadius: 'var(--radius-sm)',
+            padding: '6px 10px',
+            fontSize: '0.78125rem',
             fontWeight: 600,
             color: 'var(--text-secondary)',
             cursor: 'pointer',
-            outline: 'none',
           }}
         >
           <option value="progress_desc">Highest Progress</option>

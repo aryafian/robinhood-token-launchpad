@@ -23,21 +23,6 @@ export function TokenCard({ token, onTrade, onViewDetails }: TokenCardProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const getPhaseBadge = () => {
-    switch (token.phase) {
-      case 0:
-        return <span className="badge badge-active">Active Curve</span>;
-      case 1:
-        return <span className="badge badge-awaiting">Awaiting Pool</span>;
-      case 2:
-        return <span className="badge badge-graduated">Graduated v4</span>;
-      case 3:
-        return <span className="badge badge-error">Cancelled</span>;
-      default:
-        return null;
-    }
-  };
-
   const taxPercent = Number(token.creatorTaxBps) / 100;
 
   return (
@@ -45,72 +30,73 @@ export function TokenCard({ token, onTrade, onViewDetails }: TokenCardProps) {
       className="token-card"
       style={{
         backgroundColor: 'var(--bg-card)',
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 'var(--radius-md)',
         border: '1px solid var(--border-subtle)',
-        padding: '20px',
+        padding: '14px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        position: 'relative',
-        transition: 'transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast)',
+        transition: 'border-color var(--transition-fast), background-color var(--transition-fast)',
         cursor: 'pointer',
       }}
       onClick={() => onViewDetails(token)}
       onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-3px)';
         e.currentTarget.style.borderColor = 'var(--border-hover)';
-        e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+        e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'none';
         e.currentTarget.style.borderColor = 'var(--border-subtle)';
-        e.currentTarget.style.boxShadow = 'none';
+        e.currentTarget.style.backgroundColor = 'var(--bg-card)';
       }}
     >
       <div>
-        {/* Top: Logo, Badges & Socials */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
+        {/* Top: Logo & Status Badges */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
           <TokenLogo
             src={token.logo}
             symbol={token.symbol}
             name={token.name}
-            size={52}
+            size={48}
           />
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
-            {getPhaseBadge()}
+            {token.phase === 0 ? (
+              <span className="badge badge-active">Active Curve</span>
+            ) : token.phase === 2 ? (
+              <span className="badge badge-graduated">Graduated v4</span>
+            ) : (
+              <span className="badge" style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: 'var(--text-secondary)' }}>
+                Phase {token.phase}
+              </span>
+            )}
+
             {taxPercent > 0 && (
-              <span
-                style={{
-                  fontSize: '0.7rem',
-                  fontWeight: 600,
-                  color: '#f59e0b',
-                  backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                  padding: '2px 6px',
-                  borderRadius: '4px',
-                }}
-              >
+              <span className="badge badge-tax">
                 Tax {taxPercent}%
               </span>
             )}
           </div>
         </div>
 
-        {/* Token Name, Ticker, and Address */}
-        <div style={{ marginBottom: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+        {/* Token Identification */}
+        <div style={{ marginBottom: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
             <h3
               style={{
-                fontSize: '1.05rem',
+                fontSize: '0.9375rem',
                 fontWeight: 700,
                 color: 'var(--text-primary)',
                 letterSpacing: '-0.01em',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
             >
               {token.name}
             </h3>
             <span
+              className="font-mono"
               style={{
-                fontSize: '0.85rem',
+                fontSize: '0.8125rem',
                 fontWeight: 600,
                 color: 'var(--accent-lime)',
               }}
@@ -124,93 +110,65 @@ export function TokenCard({ token, onTrade, onViewDetails }: TokenCardProps) {
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              marginTop: '4px',
-              fontSize: '0.75rem',
+              marginTop: '2px',
+              fontSize: '0.6875rem',
               color: 'var(--text-muted)',
             }}
           >
-            <span>{formatAddress(token.token)}</span>
+            <span className="font-mono">{formatAddress(token.token)}</span>
             <button
               onClick={handleCopy}
-              title="Copy token address"
-              style={{
-                padding: '2px 4px',
-                borderRadius: '4px',
-                fontSize: '0.7rem',
-                color: copied ? 'var(--accent-lime)' : 'var(--text-muted)',
-              }}
+              title="Copy address"
+              style={{ color: copied ? 'var(--accent-lime)' : 'var(--text-muted)' }}
             >
-              {copied ? '✓' : '📋'}
+              {copied ? '✓' : '⧉'}
             </button>
             <a
               href={getAddressUrl(token.token)}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              title="View on Robinhood Explorer"
-              style={{
-                color: 'var(--text-muted)',
-                fontSize: '0.7rem',
-                opacity: 0.8,
-              }}
+              title="View Explorer"
+              style={{ color: 'var(--text-muted)' }}
             >
               ↗
             </a>
           </div>
         </div>
 
-        {/* Description snippet */}
-        {token.description && (
-          <p
-            style={{
-              fontSize: '0.8rem',
-              color: 'var(--text-secondary)',
-              lineHeight: 1.4,
-              marginBottom: '14px',
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              minHeight: '2.4em',
-            }}
-          >
-            {token.description}
-          </p>
-        )}
-
-        {/* Pricing Metrics */}
+        {/* Pricing Inset */}
         <div
           style={{
             backgroundColor: 'var(--bg-input)',
-            borderRadius: 'var(--radius-md)',
-            padding: '10px 12px',
-            marginBottom: '14px',
+            borderRadius: 'var(--radius-sm)',
+            padding: '8px 10px',
+            marginBottom: '12px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            fontSize: '0.75rem',
           }}
         >
           <div>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'block' }}>
+            <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', display: 'block' }}>
               Spot Price
             </span>
-            <span style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+            <span className="font-mono" style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
               {formatSmallPrice(token.spotPriceEth)}
             </span>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'block' }}>
+            <span style={{ fontSize: '0.6875rem', color: 'var(--text-muted)', display: 'block' }}>
               Raised
             </span>
-            <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+            <span className="font-mono" style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
               {formatWei(token.realQuoteReserve, 3)} ETH
             </span>
           </div>
         </div>
 
-        {/* Graduation Progress Bar */}
-        <div style={{ marginBottom: '16px' }}>
+        {/* Progress */}
+        <div style={{ marginBottom: '14px' }}>
           <ProgressBar
             progressBps={token.graduationProgressBps}
             realQuoteReserve={token.realQuoteReserve}
@@ -219,11 +177,11 @@ export function TokenCard({ token, onTrade, onViewDetails }: TokenCardProps) {
         </div>
       </div>
 
-      {/* Action Button */}
-      <div style={{ display: 'flex', gap: '8px' }}>
+      {/* Action CTA */}
+      <div style={{ display: 'flex', gap: '6px' }}>
         <button
           className="btn btn-secondary"
-          style={{ flex: '1', fontSize: '0.8125rem', padding: '8px 12px' }}
+          style={{ flex: 1, padding: '6px 8px', fontSize: '0.75rem' }}
           onClick={(e) => {
             e.stopPropagation();
             onViewDetails(token);
@@ -235,7 +193,7 @@ export function TokenCard({ token, onTrade, onViewDetails }: TokenCardProps) {
         {token.phase === 0 ? (
           <button
             className="btn btn-primary"
-            style={{ flex: '2', fontSize: '0.8125rem', padding: '8px 14px' }}
+            style={{ flex: 2, padding: '6px 10px', fontSize: '0.75rem' }}
             onClick={(e) => {
               e.stopPropagation();
               onTrade(token);
@@ -243,30 +201,14 @@ export function TokenCard({ token, onTrade, onViewDetails }: TokenCardProps) {
           >
             Buy ${token.symbol}
           </button>
-        ) : token.phase === 2 ? (
-          <button
-            className="btn"
-            style={{
-              flex: '2',
-              fontSize: '0.8125rem',
-              padding: '8px 14px',
-              backgroundColor: 'rgba(139, 92, 246, 0.15)',
-              color: '#a78bfa',
-              cursor: 'default',
-            }}
-            disabled
-            onClick={(e) => e.stopPropagation()}
-          >
-            Graduated
-          </button>
         ) : (
           <button
             className="btn btn-secondary"
-            style={{ flex: '2', fontSize: '0.8125rem', padding: '8px 14px', opacity: 0.6 }}
+            style={{ flex: 2, padding: '6px 10px', fontSize: '0.75rem', opacity: 0.6 }}
             disabled
             onClick={(e) => e.stopPropagation()}
           >
-            Phase {token.phase}
+            {token.phase === 2 ? 'Graduated' : `Phase ${token.phase}`}
           </button>
         )}
       </div>

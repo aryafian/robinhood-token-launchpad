@@ -142,14 +142,14 @@ export function TokenDetailsModal({
       <div
         style={{
           backgroundColor: 'var(--bg-card)',
-          borderRadius: 'var(--radius-xl)',
+          borderRadius: 'var(--radius-lg)',
           border: '1px solid var(--border-hover)',
-          maxWidth: '680px',
+          maxWidth: '640px',
           width: '100%',
           maxHeight: '92vh',
           overflowY: 'auto',
-          padding: '28px',
-          boxShadow: 'var(--shadow-lg)',
+          padding: '24px',
+          boxShadow: 'var(--shadow-modal)',
           position: 'relative',
         }}
         onClick={(e) => e.stopPropagation()}

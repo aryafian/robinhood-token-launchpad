@@ -10,35 +10,14 @@ interface TokenLogoProps {
   className?: string;
 }
 
-// Generate consistent gradient colors based on symbol
-function getGradient(symbol: string): [string, string] {
-  const palettes: [string, string][] = [
-    ['#c2f141', '#10b981'],
-    ['#8b5cf6', '#ec4899'],
-    ['#3b82f6', '#06b6d4'],
-    ['#f59e0b', '#ef4444'],
-    ['#10b981', '#3b82f6'],
-    ['#6366f1', '#a855f7'],
-    ['#f43f5e', '#fb923c'],
-  ];
-
-  let hash = 0;
-  for (let i = 0; i < symbol.length; i++) {
-    hash = symbol.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const index = Math.abs(hash) % palettes.length;
-  return palettes[index];
-}
-
 export function TokenLogo({
   src,
   symbol,
   name,
-  size = 48,
+  size = 44,
   className = '',
 }: TokenLogoProps) {
   const [hasError, setHasError] = useState(false);
-  const [gradStart, gradEnd] = getGradient(symbol || 'TOKEN');
 
   const showPlaceholder = !src || src.trim() === '' || hasError;
 
@@ -46,21 +25,22 @@ export function TokenLogo({
     const initials = (symbol || name || 'TK').slice(0, 3).toUpperCase();
     return (
       <div
-        className={`token-logo-placeholder ${className}`}
+        className={`token-logo-placeholder font-mono ${className}`}
         style={{
           width: size,
           height: size,
-          borderRadius: size > 40 ? '14px' : '10px',
-          background: `linear-gradient(135deg, ${gradStart} 0%, ${gradEnd} 100%)`,
+          borderRadius: '8px',
+          backgroundColor: '#1b1e26',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#0a0b0d',
-          fontWeight: 800,
-          fontSize: size > 40 ? `${Math.round(size * 0.32)}px` : '12px',
-          boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
+          color: '#e2e8f0',
+          fontWeight: 700,
+          fontSize: size > 40 ? `${Math.round(size * 0.32)}px` : '11px',
           userSelect: 'none',
           flexShrink: 0,
+          letterSpacing: '-0.02em',
         }}
         title={name}
       >
@@ -75,10 +55,11 @@ export function TokenLogo({
       style={{
         width: size,
         height: size,
-        borderRadius: size > 40 ? '14px' : '10px',
+        borderRadius: '8px',
         overflow: 'hidden',
         position: 'relative',
-        background: '#181b21',
+        backgroundColor: '#1b1e26',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
         flexShrink: 0,
       }}
     >

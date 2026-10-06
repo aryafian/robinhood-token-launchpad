@@ -15,7 +15,7 @@ export function ProgressBar({
   realQuoteReserve,
   graduationThreshold,
   showLabels = true,
-  height = 8,
+  height = 4,
 }: ProgressBarProps) {
   const percent =
     typeof progressBps === 'bigint' ? Number(progressBps) / 100 : progressBps;
@@ -29,46 +29,48 @@ export function ProgressBar({
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center',
-            fontSize: '0.78rem',
+            alignItems: 'baseline',
+            fontSize: '0.75rem',
             marginBottom: '6px',
             color: 'var(--text-secondary)',
           }}
         >
           <span>
             Raised:{' '}
-            <strong style={{ color: 'var(--text-primary)' }}>
+            <span className="font-mono" style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
               {formatWei(realQuoteReserve, 4)} ETH
-            </strong>
+            </span>
           </span>
-          <span style={{ fontWeight: 600, color: isFull ? 'var(--status-graduated)' : 'var(--accent-lime)' }}>
+          <span
+            className="font-mono"
+            style={{
+              fontWeight: 600,
+              fontSize: '0.75rem',
+              color: isFull ? 'var(--status-graduated)' : 'var(--accent-lime)',
+            }}
+          >
             {formatProgress(progressBps)}
           </span>
         </div>
       )}
 
+      {/* Progress Track */}
       <div
         style={{
           width: '100%',
           height: `${height}px`,
-          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-          borderRadius: '9999px',
+          backgroundColor: 'rgba(255, 255, 255, 0.07)',
+          borderRadius: '2px',
           overflow: 'hidden',
-          position: 'relative',
         }}
       >
         <div
           style={{
             width: `${clamped}%`,
             height: '100%',
-            background: isFull
-              ? 'linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%)'
-              : 'linear-gradient(90deg, #a3e635 0%, #c2f141 100%)',
-            borderRadius: '9999px',
-            transition: 'width 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-            boxShadow: isFull
-              ? '0 0 10px rgba(139, 92, 246, 0.5)'
-              : '0 0 10px rgba(194, 241, 65, 0.4)',
+            backgroundColor: isFull ? 'var(--status-graduated)' : 'var(--accent-lime)',
+            borderRadius: '2px',
+            transition: 'width 0.4s ease',
           }}
         />
       </div>
@@ -78,12 +80,14 @@ export function ProgressBar({
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
-            fontSize: '0.72rem',
+            fontSize: '0.6875rem',
             marginTop: '4px',
             color: 'var(--text-muted)',
           }}
         >
-          <span>Target: {formatWei(graduationThreshold, 3)} ETH</span>
+          <span>
+            Target: <span className="font-mono">{formatWei(graduationThreshold, 3)} ETH</span>
+          </span>
         </div>
       )}
     </div>

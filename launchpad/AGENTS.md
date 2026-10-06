@@ -7,3 +7,14 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+<!-- antislop:start -->
+## antislop
+
+This project uses antislop (Anti Slop: Rules for AI Coding Agents).
+- Core rules: `../.agents/rules/antislop.md`
+- UI & visual skill: `../.agents/skills/antislop-ui/SKILL.md`
+- Copywriting skill: `../.agents/skills/antislop-copywriting/SKILL.md`
+- Mobile layout skill: `../.agents/skills/antislop-layoutmobile/SKILL.md`
+- Accessibility skill: `../.agents/skills/antislop-human/SKILL.md`
+<!-- antislop:end -->
